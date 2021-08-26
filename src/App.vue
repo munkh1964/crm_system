@@ -1,11 +1,16 @@
 <template>
-  <div id="app">
+  <v-app>
     <app-header></app-header>
-  </div>
+    <v-content>
+      <router-view />
+    </v-content>
+    <app-footer></app-footer>
+  </v-app>
 </template>
 
 <script>
 import AppHeader from "@/components/app/AppHeader";
+import AppFooter from "@/components/app/AppFooter";
 export default {
   name: "App",
 
@@ -14,6 +19,7 @@ export default {
   }),
   components: {
     AppHeader,
+    AppFooter,
   },
 };
 </script>
