@@ -1,9 +1,9 @@
 <template>
-  <v-app>
+  <v-app app>
     <app-header></app-header>
-    <v-content>
+    <v-main>
       <router-view />
-    </v-content>
+    </v-main>
     <app-footer></app-footer>
   </v-app>
 </template>
@@ -14,9 +14,9 @@ import AppFooter from "@/components/app/AppFooter";
 export default {
   name: "App",
 
-  data: () => ({
-    //
-  }),
+  // data: () => ({
+  //   //
+  // }),
   components: {
     AppHeader,
     AppFooter,

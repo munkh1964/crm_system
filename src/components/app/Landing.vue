@@ -1,29 +1,39 @@
 <template>
-  <div class="row">
-    <div class="col s12">
-      <div class="card z-depth-0 transparentBG">
-        <div class="card-content white-text">
-          <h4>
-            I am a very simple card. I am good at containing small bits of
-            information. I am convenient because I require little markup to use
-            effectively.
-          </h4>
+  <v-carousel show-arrows-on-hover hide-delimiters cycle>
+    <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src" transition="scroll-y-transition">
+      <v-row class="fill-height" align="center">
+        <div class="text-h2 white--text pl-5">
+          {{ item.text }}
         </div>
-        <div class="card-action center-align">
-          <router-link class="btn" to="/home">Visit to site</router-link>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- <section>
-    <h1>Slogan</h1>
-    <h3>Company name.</h3>
-    <a href="#" class="btn">Visit to site</a>
-  </section> -->
+      </v-row>
+    </v-carousel-item>
+  </v-carousel>
 </template>
 
+<script>
+export default {
+  data: () => ({
+    items: [
+      {
+        src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+        text: "askkjasasd kasdkjas jksdfjksd өббоөаорбаөаб",
+      },
+      {
+        src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg",
+        text: "олрбыолөаб олбрөалорбгужэүшугж вьтсчтслоарболаөб",
+      },
+      {
+        src: "https://cdn.vuetifyjs.com/images/carousel/bird.jpg",
+        text: "kljglkasd ldkfgsdj",
+      },
+      {
+        src: "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
+        text: "askkjasasd kasdkjas jksdfjksd өббоөаорбаөаб",
+      },
+    ],
+  }),
+};
+</script>
+
 <style scoped>
-.row {
-  margin-top: 5em;
-}
 </style>
