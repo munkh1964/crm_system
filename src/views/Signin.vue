@@ -11,8 +11,10 @@
               {{error}}
             </v-alert>
             <v-form v-model="valid">
-              <v-text-field prepend-icon="mdi-account" name="email" label="Э-майл" type="email" v-model="email" :error-messages="emailErrors" @input="$v.email.$touch()" @blur="$v.email.$touch()" required></v-text-field>
-              <v-text-field id=" password" prepend-icon="mdi-lock" name="password" label="Нууц үг" type="password" v-model="password" :error-messages="passwodErrors" @input="$v.password.$touch()" required></v-text-field>
+              <v-text-field prepend-icon="mdi-account" name="email" label="Э-майл" type="email" v-model="email" required :rules="emailRules">
+              </v-text-field>
+              <v-text-field id="password" prepend-icon="mdi-lock" name="password" label="Нууц үг" type="password" v-model="password" required :rules="passwordRules">
+              </v-text-field>
             </v-form>
           </v-card-text>
           <v-card-actions>
@@ -26,7 +28,8 @@
 </template>
 
 <script>
-import { email, required } from "vuelidate/lib/validators";
+// import { validationMixin } from "vuelidate";
+// import { email, required } from "vuelidate/lib/validators";
 
 export default {
   data: () => {
@@ -34,11 +37,16 @@ export default {
       email: null,
       password: null,
       valid: false,
+
+      emailRules: [
+        (v) => !!v || "Эмайл хаягаа оруулна уу",
+        (v) => /.+@.+/.test(v) || "Буруу эмайл хаяг",
+      ],
+      passwordRules: [
+        (v) => !!v || "Нууц үгээ оруулна уу",
+        // (v) => v.length >= 6 || "Нууц үг 6 -аас багагүй урттай байх хэрэгтэй",
+      ],
     };
-  },
-  validations: {
-    email: { email, required },
-    password: { required },
   },
   computed: {
     error() {
@@ -48,20 +56,7 @@ export default {
       return this.$store.getters.getProcessing;
     },
     isUserAuthenticated() {
-      return this.$store.getters.isUserAutheticated;
-    },
-    emailErrors() {
-      const errors = [];
-      if (!this.$v.email.$dirty) return errors;
-      !this.$v.email.email && errors.push("Эмайл хаягаа зөв оруулна уу.");
-      !this.$v.email.required && errors.push("Эмайл хоосон байж болохгүй.");
-      return errors;
-    },
-    passwodErrors() {
-      const errors = [];
-      if (!this.$v.passwod.$dirty) return errors;
-      !this.$v.passwod.required && errors.push("Нууц үгээ оруулна уу.");
-      return errors;
+      return this.$store.getters.isUserAuthenticated;
     },
   },
   watch: {

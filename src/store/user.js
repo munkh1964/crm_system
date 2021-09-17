@@ -1,4 +1,5 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import messages from '../config/messages'
 
 export default {
   state: {
@@ -30,7 +31,7 @@ export default {
         })
         .catch((error) => {
           commit('setProcessing', false)
-          commit('setError', error.message)
+          commit('setError', messages[error.code] || 'Тодорхойгүй алдаа')
         });
     },
     SignIn({ commit }, payload) {
@@ -43,8 +44,18 @@ export default {
         })
         .catch((error) => {
           commit('setProcessing', false)
-          commit('setError', error.message)
+          commit('setError', messages[error.code] || 'Тодорхойгүй алдаа')
         });
+    },
+    SignOut() {
+      const auth = getAuth();
+      signOut(auth).then(() => {
+        console.log('Sign-out successful.')
+        // Sign-out successful.
+      }).catch((error) => {
+        console.log(error)
+        // An error happened.
+      });
     },
     StateChanged({ commit }, payload) {
       if (payload) {

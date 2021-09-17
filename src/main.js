@@ -25,7 +25,7 @@ new Vue({
   created() {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
-      this.$store.dispatch('StateChanged', user)
+      this.$store.dispatch('StateChanged', user);
     });
   }
 }).$mount('#app')
